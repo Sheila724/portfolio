@@ -84,9 +84,9 @@ export const projects: Project[] = [
     slug: "incidente-zero",
     name: "Incidente Zero",
     featured: "terminal",
-    status: "live",
+    status: "building",
     visibility: "public",
-    host: { pt: "Sua máquina + demo", en: "Your machine + demo" },
+    host: { pt: "Na sua máquina", en: "On your machine" },
     tagline: {
       pt: "Simulador open source de incidentes para quem está começando em DevOps, SRE e infraestrutura.",
       en: "An open source incident simulator for people starting out in DevOps, SRE and infrastructure.",
@@ -120,7 +120,7 @@ export const projects: Project[] = [
       en: "Next up: intermediate and advanced tracks and an on-call mode with random incidents and alerts, just like a real rotation.",
     },
     stack: ["Go", "Svelte", "xterm.js", "Docker", "Sysbox", "Bash", "GitHub Actions"],
-    links: { repo: "https://github.com/Sheila724/incidente-zero", demo: "https://incidente-zero.gapsaa.com.br" },
+    links: { repo: "https://github.com/Sheila724/incidente-zero" },
   },
   {
     slug: "sentinela",
