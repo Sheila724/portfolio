@@ -32,6 +32,15 @@ export const academicProjects: AcademicProject[] = [
     team: true,
   },
   {
+    name: { pt: "TechBot, chatbot de suporte de TI", en: "TechBot, an IT support chatbot" },
+    summary: {
+      pt: "Chatbot em Rasa que entende dúvidas de TI em português, responde 19 tópicos, abre chamado por formulário e mostra o status dos sistemas.",
+      en: "Rasa chatbot that understands IT questions in Portuguese, covers 19 topics, opens tickets through a form and shows system status.",
+    },
+    stack: ["Python", "Rasa", "PLN"],
+    repo: "https://github.com/Sheila724/bot-PLN",
+  },
+  {
     name: { pt: "API de tarefas", en: "Task API" },
     summary: {
       pt: "API REST em Spring Boot com auditoria JPA, testes unitários com JUnit e Mockito e testes de integração com H2.",
