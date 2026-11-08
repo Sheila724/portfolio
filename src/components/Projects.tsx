@@ -182,6 +182,12 @@ function FeaturedProject({ p, d, locale }: { p: Project; d: Dictionary; locale: 
             <GitHub />
           </a>
         )}
+        {p.links?.demo && (
+          <a href={p.links.demo} className="btn btn-ghost" target="_blank" rel="noreferrer">
+            {d.projects.demo}
+            <ArrowUpRight width={16} height={16} />
+          </a>
+        )}
       </div>
     </article>
   );
@@ -251,10 +257,18 @@ function ProjectSheet({ p, d, locale }: { p: Project; d: Dictionary; locale: Loc
 
         <div className="mt-10 border-t border-cable pt-8">
           {p.links?.repo ? (
-            <a href={p.links.repo} className="btn btn-primary" target="_blank" rel="noreferrer">
-              <GitHub />
-              {d.projects.repo}
-            </a>
+            <div className="flex flex-wrap gap-3">
+              <a href={p.links.repo} className="btn btn-primary" target="_blank" rel="noreferrer">
+                <GitHub />
+                {d.projects.repo}
+              </a>
+              {p.links.demo && (
+                <a href={p.links.demo} className="btn btn-ghost" target="_blank" rel="noreferrer">
+                  {d.projects.demo}
+                  <ArrowUpRight width={16} height={16} />
+                </a>
+              )}
+            </div>
           ) : (
             <p className="flex items-center gap-2 text-sm text-muted">
               <Lock width={15} height={15} />

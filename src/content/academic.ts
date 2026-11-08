@@ -22,6 +22,15 @@ export const academicProjects: AcademicProject[] = [
     team: true,
   },
   {
+    name: { pt: "Mensageria com RabbitMQ", en: "Messaging with RabbitMQ" },
+    summary: {
+      pt: "Pedidos de marketplace processados de forma assíncrona pelo RabbitMQ, gravados no PostgreSQL e consultados por API FastAPI, com disparo em lote e monitor da fila para testar resiliência.",
+      en: "Marketplace orders processed asynchronously through RabbitMQ, stored in PostgreSQL and queried via a FastAPI API, with batch load and a queue monitor to test resilience.",
+    },
+    stack: ["RabbitMQ", "FastAPI", "PostgreSQL", "Docker"],
+    repo: "https://github.com/Sheila724/projeto-mensageria",
+  },
+  {
     name: { pt: "E-commerce com replicação MySQL", en: "E-commerce with MySQL replication" },
     summary: {
       pt: "Spring Boot que envia escrita ao banco primário e leitura às réplicas em round-robin só pela anotação de transação, com painel atualizado em tempo real.",

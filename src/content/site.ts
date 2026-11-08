@@ -9,7 +9,7 @@ export const site = {
   /** URL final do site, sem barra no fim. Usada no SEO e no Open Graph. */
   url: "https://sheila.gapsaa.com.br",
   location: { pt: "Franca, SP, Brasil", en: "Franca, SP, Brazil" } satisfies T,
-  email: "sheilynhaalves@gmail.com",
+  email: "sheila.araujo486@gmail.com",
   github: "https://github.com/Sheila724",
   linkedin: "https://www.linkedin.com/in/sheila-alvesaraujo",
   role: {
