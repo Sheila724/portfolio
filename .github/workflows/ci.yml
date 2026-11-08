@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run build
+      - name: Verificar páginas geradas
+        run: |
+          test -f out/pt/index.html
+          test -f out/en/index.html
+          test -f out/manifest.webmanifest
+          grep -q 'lang="pt-BR"' out/pt/index.html
+          grep -q 'lang="en"' out/en/index.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: out
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: check
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t portfolio .
+      - run: |
+          docker run -d --name p -p 8080:80 portfolio
+          sleep 2
+          curl -fsS http://localhost:8080/pt/ | grep -q "Sheila"
+          curl -fsS -o /dev/null -w "%{http_code}" http://localhost:8080/nao-existe/ | grep -q 404
