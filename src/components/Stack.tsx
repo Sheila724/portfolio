@@ -1,10 +1,13 @@
 import type { Dictionary } from "@/content/dictionary";
+import { academicProjects } from "@/content/academic";
 import { projects } from "@/content/projects";
 import { stackGroups } from "@/content/stack";
 import type { Locale } from "@/lib/i18n";
 
+const allStacks = [...projects.map((p) => p.stack), ...academicProjects.map((a) => a.stack)];
+
 function usage(tech: string) {
-  return projects.filter((p) => p.stack.some((s) => s.toLowerCase() === tech.toLowerCase())).length;
+  return allStacks.filter((stack) => stack.some((s) => s.toLowerCase() === tech.toLowerCase())).length;
 }
 
 export function Stack({ d, locale }: { d: Dictionary; locale: Locale }) {

@@ -33,6 +33,9 @@ const pt = {
     repo: "Ver código no GitHub",
     privateRepo: "Código privado. Posso mostrar numa conversa.",
     status: "Status",
+    academic: "Projetos acadêmicos",
+    academicIntro: "Trabalhos do curso de Desenvolvimento de Software Multiplataforma na FATEC Franca.",
+    team: "em equipe",
   },
   stack: {
     title: "Stack",
@@ -92,6 +95,9 @@ const en: Dictionary = {
     repo: "View code on GitHub",
     privateRepo: "Private code. Happy to walk you through it on a call.",
     status: "Status",
+    academic: "Academic projects",
+    academicIntro: "Coursework from the Multiplatform Software Development program at FATEC Franca.",
+    team: "team project",
   },
   stack: {
     title: "Stack",

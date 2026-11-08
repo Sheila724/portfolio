@@ -26,6 +26,7 @@ src/
   content/           TODO o conteúdo do site — edite aqui
     site.ts          nome, e-mail, links, URL final
     projects.ts      projetos (PT/EN), status, stack, links
+    academic.ts      projetos acadêmicos da FATEC
     stack.ts         tecnologias por área
     journey.ts       trajetória
     dictionary.ts    textos da interface

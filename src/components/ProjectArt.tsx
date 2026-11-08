@@ -115,3 +115,24 @@ export function FleetArt({ locale }: { locale: Locale }) {
     </ol>
   );
 }
+
+export function PetArt({ locale }: { locale: Locale }) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-cable bg-[#dfe5ee] shadow-[0_30px_80px_-30px_rgb(0_0_0/0.8)]">
+      {/* eslint-disable-next-line @next/next/no-img-element -- export estático sem otimização de imagem */}
+      <img
+        src="/pestinha.webp"
+        width={320}
+        height={320}
+        loading="lazy"
+        decoding="async"
+        className="block h-auto w-full max-w-[20rem]"
+        alt={
+          locale === "pt"
+            ? "Animações do Pestinha: pensando, guarda-chuva na chuva, festa, diário, obedecer e recusar"
+            : "Pestinha animations: thinking, umbrella in the rain, party, diary, obeying and refusing"
+        }
+      />
+    </div>
+  );
+}

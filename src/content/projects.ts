@@ -6,7 +6,7 @@ export type Project = {
   slug: string;
   name: string | T;
   /** Destaque na seção principal (com ilustração própria). */
-  featured?: "globe" | "terminal" | "fleet";
+  featured?: "globe" | "terminal" | "fleet" | "pet";
   status: Status;
   /** Código público no GitHub ou repositório privado. */
   visibility: "public" | "private";
@@ -20,6 +20,8 @@ export type Project = {
   stack: string[];
   links?: { repo?: string; demo?: string };
   credit?: { text: T; href: string };
+  /** Observação curta exibida junto ao link do código. */
+  note?: T;
 };
 
 /** Versão curta usada no painel do topo. */
@@ -224,36 +226,42 @@ export const projects: Project[] = [
   {
     slug: "pestinha-hermes",
     name: "Pestinha + Hermes",
+    featured: "pet",
     status: "live",
-    visibility: "private",
-    host: { pt: "VPS na nuvem", en: "Cloud VPS" },
+    visibility: "public",
+    host: { pt: "VPS + Windows", en: "VPS + Windows" },
     tagline: {
-      pt: "Pet de desktop com um agente de IA por trás, que conversa e acompanha o dia a dia de uma equipe de suporte.",
-      en: "A desktop pet backed by an AI agent that chats with and keeps a support team company through the day.",
+      pt: "Um pet de tela que ganhou um cérebro na nuvem: conversa, lembra compromissos, avisa da chuva e escreve um diário.",
+      en: "A desktop pet that got a brain in the cloud: it chats, keeps reminders, warns you about rain and writes a diary.",
     },
     problem: {
-      pt: "O Pestinha original é um pet de tela divertido, mas sem memória nem conversa. A ideia era dar a ele uma cabeça própria.",
-      en: "The original Pestinha is a fun on-screen pet, but it has no memory and can't hold a conversation. The idea was to give it a mind of its own.",
+      pt: "Ligar um pet de desktop a um agente de IA rodando num computador de trabalho, atrás de firewall e proxy, sem VPN, sem porta aberta no PC e sem deixar o agente exposto na internet.",
+      en: "Connecting a desktop pet to an AI agent from a work computer behind a firewall and proxy, with no VPN, no open port on the PC and without exposing the agent to the internet.",
     },
     solution: {
-      pt: "Um agente Hermes instalado do zero numa VPS própria, com instâncias separadas por pessoa, cada uma com memória e personalidade, e um pet compartilhado para a equipe toda. É para brincar: sem chamados nem dados de clientes.",
-      en: "A Hermes agent installed from scratch on a dedicated VPS, with a separate instance per person, each with its own memory and personality, plus a shared pet for the whole team. It's for fun: no tickets and no customer data.",
+      pt: "Uma ponte em FastAPI na VPS atende o pet por HTTPS e conversa com o Hermes Agent, que só escuta em localhost. A rede neural original continua decidindo o humor; o agente conversa e pede ações ao corpo, e o instinto decide se obedece.",
+      en: "A FastAPI bridge on the VPS serves the pet over HTTPS and talks to the Hermes Agent, which only listens on localhost. The original neural network still decides the mood; the agent chats and asks the body to act, and instinct decides whether to obey.",
     },
     highlights: {
       pt: [
-        "Agente Hermes self-hosted, isolado dos outros projetos",
-        "Instâncias independentes com memória e personalidade próprias",
-        "Pet compartilhado para equipes de 6 a 15 pessoas",
-        "Pesquisa na web e modelo de linguagem via Tavily e Gemini",
+        "Polling HTTPS a cada 5 segundos em vez de WebSocket: passa em qualquer rede corporativa e é fácil de depurar",
+        "Fila com id crescente em SQLite: nada se perde nem aparece duas vezes, mesmo com o pet fechado",
+        "Agente com o mínimo de ferramentas, só pesquisa e memória; lembretes, clima e diário são código da ponte",
+        "VPS endurecida: login só por chave, firewall em 22, 80 e 443, Caddy com Let's Encrypt e token comparado em tempo constante",
+        "Instâncias separadas por pessoa, cada uma com memória e personalidade próprias",
+        "CI em Windows, macOS e Linux, executável com PyInstaller e instalador com Inno Setup",
       ],
       en: [
-        "Self-hosted Hermes agent, isolated from other projects",
-        "Independent instances with their own memory and personality",
-        "A shared pet for teams of 6 to 15 people",
-        "Web search and language model through Tavily and Gemini",
+        "HTTPS polling every 5 seconds instead of WebSockets: works on any corporate network and is easy to debug",
+        "Monotonic-id queue in SQLite: nothing is lost or shown twice, even while the pet is closed",
+        "Agent with the bare minimum of tools, only search and memory; reminders, weather and the diary live in the bridge",
+        "Hardened VPS: key-only SSH, firewall on 22, 80 and 443, Caddy with Let's Encrypt and constant-time token checks",
+        "Separate instances per person, each with its own memory and personality",
+        "CI on Windows, macOS and Linux, a PyInstaller executable and an Inno Setup installer",
       ],
     },
-    stack: ["Hermes Agent", "Gemini", "Tavily", "Linux"],
+    stack: ["Python", "PySide6", "FastAPI", "SQLite", "Caddy", "Hermes Agent", "Gemini", "GitHub Actions"],
+    links: { repo: "https://github.com/Sheila724/pestinha-hermes" },
     credit: {
       text: { pt: "Baseado no Pestinha, criado por mille-okws", en: "Based on Pestinha, created by mille-okws" },
       href: "https://github.com/mille-okws/pestinha",
@@ -263,7 +271,7 @@ export const projects: Project[] = [
     slug: "agentes-hermes",
     name: { pt: "Agentes de IA para operações", en: "AI agents for operations" },
     status: "live",
-    visibility: "private",
+    visibility: "public",
     host: { pt: "Homelab + VPS", en: "Homelab + VPS" },
     tagline: {
       pt: "Agentes self-hosted que fazem triagem de e-mail, resumem o dia e avisam sobre prazos vencidos.",
@@ -279,25 +287,34 @@ export const projects: Project[] = [
     },
     highlights: {
       pt: [
+        "Leitura de e-mail idempotente por UID: o ponteiro só avança depois que o registro foi gravado",
+        "Alertas de SLA no WhatsApp após 2 horas sem resposta, repetidos a cada hora, com caminho alternativo se o canal falhar",
+        "Rotação automática de plantão e relatórios diário, semanal e mensal",
         "Agente de triagem de e-mail de suporte com detecção de mudança de assunto",
-        "Avisos no WhatsApp por uma ponte Baileys e registros em Google Sheets",
         "Webhooks do OpenProject com responsáveis, tarefas atrasadas e alerta de prazo",
         "Bot no Discord com slash commands e roteamento entre Gemini Flash e Nous Portal",
       ],
       en: [
+        "Idempotent email reading by UID: the pointer only advances after the record is saved",
+        "SLA alerts on WhatsApp after 2 hours without a reply, repeated hourly, with a fallback if the channel fails",
+        "Automatic on-call rotation and daily, weekly and monthly reports",
         "Support email triage agent with topic-change detection",
-        "WhatsApp notifications through a Baileys bridge and logs in Google Sheets",
         "OpenProject webhooks with assignees, overdue tasks and deadline alerts",
         "Discord bot with slash commands and routing between Gemini Flash and Nous Portal",
       ],
     },
     stack: ["Python", "Hermes Agent", "Discord", "OpenProject", "Google Sheets"],
+    links: { repo: "https://github.com/Sheila724/hermes" },
+    note: {
+      pt: "O repositório público é uma versão sanitizada, sem dados internos nem credenciais.",
+      en: "The public repository is a sanitized version, with no internal data or credentials.",
+    },
   },
   {
     slug: "homelab",
     name: "Homelab Proxmox",
     status: "live",
-    visibility: "private",
+    visibility: "public",
     host: { pt: "Notebook em casa", en: "Laptop at home" },
     tagline: {
       pt: "Um notebook antigo transformado em servidor com vários serviços self-hosted.",
@@ -313,12 +330,12 @@ export const projects: Project[] = [
     },
     highlights: {
       pt: [
-        "Pi-hole, n8n, agente Hermes e um laboratório de BI com Metabase, Superset e Redash",
+        "Pi-hole, n8n, Dolibarr, Anytype, agente Hermes e um laboratório de BI com Metabase, Superset e Redash",
         "Monitoramento centralizado com Zabbix e alertas para WhatsApp e Discord",
         "Cada serviço em seu próprio LXC ou VM, fácil de recriar",
       ],
       en: [
-        "Pi-hole, n8n, a Hermes agent and a BI lab with Metabase, Superset and Redash",
+        "Pi-hole, n8n, Dolibarr, Anytype, a Hermes agent and a BI lab with Metabase, Superset and Redash",
         "Centralized Zabbix monitoring with alerts to WhatsApp and Discord",
         "Each service in its own LXC or VM, easy to rebuild",
       ],
@@ -328,6 +345,7 @@ export const projects: Project[] = [
       en: "Next up: a multi-node cluster and infrastructure as code with Terraform and Ansible.",
     },
     stack: ["Proxmox", "LXC", "Cloudflare", "Zabbix", "n8n", "Pi-hole", "Metabase"],
+    links: { repo: "https://github.com/Sheila724/homelab" },
   },
   {
     slug: "onboard-lab",

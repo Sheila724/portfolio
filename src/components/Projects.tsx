@@ -2,10 +2,13 @@ import type { Dictionary } from "@/content/dictionary";
 import { featuredProjects, otherProjects, type Project, statusLabel } from "@/content/projects";
 import { type Locale, tx } from "@/lib/i18n";
 import { ArrowRight, ArrowUpRight, Close, GitHub, Lock } from "./icons";
-import { FleetArt, GlobeArt, TerminalArt } from "./ProjectArt";
+import { academicProjects } from "@/content/academic";
+import { FleetArt, GlobeArt, PetArt, TerminalArt } from "./ProjectArt";
 
 export function Projects({ d, locale }: { d: Dictionary; locale: Locale }) {
-  const [lead, ...rest] = featuredProjects;
+  const wide = featuredProjects.filter((p) => p.featured === "globe" || p.featured === "pet");
+  const pair = featuredProjects.filter((p) => p.featured === "terminal" || p.featured === "fleet");
+  const [first, second] = wide;
 
   return (
     <section id="projects" aria-labelledby="projects-title" className="shell py-20 md:py-28">
@@ -16,13 +19,15 @@ export function Projects({ d, locale }: { d: Dictionary; locale: Locale }) {
         <p className="measure text-muted md:justify-self-end">{d.projects.intro}</p>
       </div>
 
-      {lead && <LeadProject p={lead} d={d} locale={locale} />}
+      {first && <LeadProject p={first} d={d} locale={locale} className="mt-14" />}
 
       <div className="mt-5 grid gap-5 md:grid-cols-2">
-        {rest.map((p) => (
+        {pair.map((p) => (
           <FeaturedProject key={p.slug} p={p} d={d} locale={locale} />
         ))}
       </div>
+
+      {second && <LeadProject p={second} d={d} locale={locale} className="mt-5" reverse />}
 
       <h3 className="mt-20 text-xl font-semibold tracking-tight">{d.projects.more}</h3>
       <ul className="mt-5 border-t border-cable">
@@ -42,6 +47,31 @@ export function Projects({ d, locale }: { d: Dictionary; locale: Locale }) {
               </span>
               <ArrowRight className="row-arrow col-start-2 row-start-1 text-faint md:col-start-auto md:row-start-auto" />
             </button>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-20 grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] md:items-end">
+        <h3 className="text-xl font-semibold tracking-tight">{d.projects.academic}</h3>
+        <p className="measure text-sm text-muted md:justify-self-end">{d.projects.academicIntro}</p>
+      </div>
+      <ul className="mt-6 grid gap-x-10 border-t border-cable md:grid-cols-2">
+        {academicProjects.map((a) => (
+          <li key={a.repo} className="border-b border-cable">
+            <a
+              href={a.repo}
+              target="_blank"
+              rel="noreferrer"
+              className="row-trigger group grid h-full grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-2 px-1 py-5 md:px-3"
+            >
+              <span className="font-semibold">
+                {a.name[locale]}
+                {a.team && <span className="ml-2 text-xs font-normal text-faint">{d.projects.team}</span>}
+              </span>
+              <ArrowUpRight className="row-arrow text-faint" width={16} height={16} />
+              <span className="col-span-2 text-sm text-muted">{a.summary[locale]}</span>
+              <span className="col-span-2 font-mono text-[0.68rem] text-faint">{a.stack.join("  /  ")}</span>
+            </a>
           </li>
         ))}
       </ul>
@@ -87,10 +117,24 @@ function StackList({ items, className = "" }: { items: string[]; className?: str
   );
 }
 
-function LeadProject({ p, d, locale }: { p: Project; d: Dictionary; locale: Locale }) {
+function LeadProject({
+  p,
+  d,
+  locale,
+  className = "",
+  reverse = false,
+}: {
+  p: Project;
+  d: Dictionary;
+  locale: Locale;
+  className?: string;
+  reverse?: boolean;
+}) {
   return (
-    <article className="mt-14 grid overflow-hidden rounded-3xl border border-cable bg-rack md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <div className="flex flex-col p-7 md:p-12">
+    <article
+      className={`grid overflow-hidden rounded-3xl border border-cable bg-rack md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] ${className}`}
+    >
+      <div className={`flex flex-col p-7 md:p-12 ${reverse ? "md:order-2" : ""}`}>
         <StatusTag p={p} locale={locale} />
         <h3 className="mt-6 text-3xl font-bold tracking-[-0.03em] md:text-[2.9rem] md:leading-[1.02]">{tx(p.name, locale)}</h3>
         <p className="mt-4 text-lg text-paper/90">{p.tagline[locale]}</p>
@@ -109,8 +153,12 @@ function LeadProject({ p, d, locale }: { p: Project; d: Dictionary; locale: Loca
           )}
         </div>
       </div>
-      <div className="relative grid place-items-center border-t border-cable bg-[radial-gradient(circle_at_50%_45%,#15243a,transparent_70%)] p-8 md:border-t-0 md:border-l md:p-12">
-        <GlobeArt />
+      <div
+        className={`relative grid place-items-center border-t border-cable bg-[radial-gradient(circle_at_50%_45%,#15243a,transparent_70%)] p-8 md:border-t-0 md:p-12 ${
+          reverse ? "md:order-1 md:border-r" : "md:border-l"
+        }`}
+      >
+        {p.featured === "pet" ? <PetArt locale={locale} /> : <GlobeArt />}
       </div>
     </article>
   );
@@ -213,6 +261,7 @@ function ProjectSheet({ p, d, locale }: { p: Project; d: Dictionary; locale: Loc
               {d.projects.privateRepo}
             </p>
           )}
+          {p.note && <p className="mt-4 text-sm text-muted">{p.note[locale]}</p>}
           {p.credit && (
             <p className="mt-6 text-sm text-muted">
               <a href={p.credit.href} className="link inline-flex items-center gap-1" target="_blank" rel="noreferrer">

@@ -23,9 +23,21 @@ async function inlineCss(html) {
   return html;
 }
 
+async function inlineImages(html) {
+  const imgs = [...new Set([...html.matchAll(/<img[^>]*\ssrc="(\/[^"]+\.(webp|png|svg))"/g)].map((m) => m[1]))];
+  for (const src of imgs) {
+    const ext = path.extname(src).slice(1);
+    const mime = ext === "svg" ? "image/svg+xml" : `image/${ext}`;
+    const b64 = (await readFile(path.join(OUT, src))).toString("base64");
+    html = html.replaceAll(`src="${src}"`, `src="data:${mime};base64,${b64}"`);
+  }
+  return html;
+}
+
 async function build(lang, file, otherFile) {
   let html = await readFile(path.join(OUT, lang, "index.html"), "utf8");
   html = await inlineCss(html);
+  html = await inlineImages(html);
   html = html
     // Scripts do runtime do Next não são necessários: a página é HTML estático.
     .replace(/<script\b(?![^>]*\bid="enhance")(?![^>]*application\/ld\+json)[^>]*>[\s\S]*?<\/script>/g, "")
