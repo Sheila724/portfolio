@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # --- runtime: só arquivos estáticos atrás do Nginx ---
-FROM nginx:1.27-alpine
+FROM nginx:1.29-alpine
 COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/out /usr/share/nginx/html
 EXPOSE 80
