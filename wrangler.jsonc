@@ -1,0 +1,13 @@
+// Publicação na Cloudflare (Workers com arquivos estáticos).
+// O build gera o site em ./out e o "npx wrangler deploy" envia essa pasta.
+{
+  "name": "portfolio",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./out",
+    // /pt e /pt/ servem a mesma página
+    "html_handling": "auto-trailing-slash",
+    // Endereço inexistente mostra o 404.html com status 404
+    "not_found_handling": "404-page"
+  }
+}
