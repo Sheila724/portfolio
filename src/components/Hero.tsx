@@ -33,7 +33,8 @@ export function Hero({ d, locale }: { d: Dictionary; locale: Locale }) {
           <p className="mt-8 flex items-start gap-2.5 text-sm text-muted">
             <span className="mt-[0.45em] size-2 shrink-0 rounded-full bg-ok shadow-[0_0_0_3px_rgb(63_217_154/0.2)]" aria-hidden />
             <span>
-              {site.location[locale]}. {d.hero.availability}
+              {site.location[locale]}
+              {d.hero.availability && `. ${d.hero.availability}`}
             </span>
           </p>
         </div>

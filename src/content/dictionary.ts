@@ -9,7 +9,7 @@ const pt = {
     lead: "Cuido de servidores, redes e suporte técnico, e construo as ferramentas que deixam esse trabalho mais rápido e previsível.",
     seeProjects: "Ver projetos",
     contact: "Falar comigo",
-    availability: "Aberta a CLT, PJ e freelance. Remoto, híbrido ou mudança de cidade.",
+    availability: "",
   },
   board: {
     title: "Painel de projetos",
@@ -18,7 +18,7 @@ const pt = {
     footnote: "Status atual de cada projeto e onde ele roda.",
     prompt: "sheila@lab:~$",
     command: "uptime",
-    output: "disponível para novos desafios",
+    output: "no ar, monitorando tudo",
   },
   projects: {
     title: "Projetos",
@@ -50,7 +50,7 @@ const pt = {
   },
   contact: {
     title: "Vamos conversar?",
-    lead: "Procuro vagas em infraestrutura, NOC, SRE, suporte N2/N3 e automação. Também aceito projetos freelance.",
+    lead: "Quer conversar sobre infraestrutura, monitoramento, automação ou algum destes projetos? Meu contato está aqui.",
     email: "Enviar e-mail",
     copy: "Copiar e-mail",
     copied: "E-mail copiado",
@@ -72,7 +72,7 @@ const en: Dictionary = {
     lead: "I look after servers, networks and technical support, and I build the tools that make that work faster and more predictable.",
     seeProjects: "See projects",
     contact: "Get in touch",
-    availability: "Open to full-time, contract and freelance work. Remote, hybrid or relocation.",
+    availability: "",
   },
   board: {
     title: "Project board",
@@ -81,7 +81,7 @@ const en: Dictionary = {
     footnote: "Current status of each project and where it runs.",
     prompt: "sheila@lab:~$",
     command: "uptime",
-    output: "available for new challenges",
+    output: "up, monitoring everything",
   },
   projects: {
     title: "Projects",
@@ -113,7 +113,7 @@ const en: Dictionary = {
   },
   contact: {
     title: "Let's talk",
-    lead: "I'm looking for roles in infrastructure, NOC, SRE, tier 2/3 support and automation. Freelance projects are welcome too.",
+    lead: "Want to talk about infrastructure, monitoring, automation or any of these projects? Here is how to reach me.",
     email: "Send an email",
     copy: "Copy email",
     copied: "Email copied",
