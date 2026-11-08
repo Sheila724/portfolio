@@ -12,8 +12,8 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -28,7 +28,7 @@ jobs:
           test -f out/manifest.webmanifest
           grep -q 'lang="pt-BR"' out/pt/index.html
           grep -q 'lang="en"' out/en/index.html
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: site
           path: out
@@ -36,21 +36,20 @@ jobs:
   secrets:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Procurar segredos no histórico inteiro
+        run: docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:v8.24.3 detect --source=/repo --redact --verbose
 
   docker:
     runs-on: ubuntu-latest
     needs: check
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: docker build -t portfolio .
       - run: |
-          docker run -d --name p -p 8080:80 portfolio
+          docker run -d --name portfolio-test -p 8080:80 portfolio
           sleep 2
           curl -fsS http://localhost:8080/pt/ | grep -q "Sheila"
           curl -fsS -o /dev/null -w "%{http_code}" http://localhost:8080/nao-existe/ | grep -q 404

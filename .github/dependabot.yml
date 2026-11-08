@@ -15,3 +15,7 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    ignore:
+      # Node só em versões LTS (pares); atualizar de major à mão
+      - dependency-name: node
+        update-types: ["version-update:semver-major"]
