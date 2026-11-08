@@ -70,7 +70,12 @@ docker compose up -d --build     # sobe em 127.0.0.1:8088
 
 Aponte o proxy reverso (Traefik, Nginx ou Cloudflare Tunnel) para a porta 8088.
 
-### Vercel / Cloudflare Pages
+### Cloudflare Pages (recomendado)
+
+Conecte o repositório em Workers & Pages. Comando de build `npm run build`, pasta de saída `out`, variável `NODE_VERSION=22`.
+Os cabeçalhos de segurança e cache ficam em `public/_headers`. Cada push na `main` publica sozinho.
+
+### Vercel
 
 Comando de build `npm run build`, pasta de saída `out`.
 
