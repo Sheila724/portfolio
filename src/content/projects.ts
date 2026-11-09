@@ -158,6 +158,44 @@ export const projects: Project[] = [
     stack: ["Nextcloud", "Windows", "Docker", "Linux"],
   },
   {
+    slug: "monitor-atendimento",
+    name: { pt: "Monitor de atendimento por e-mail", en: "Email support monitor" },
+    status: "building",
+    visibility: "private",
+    host: { pt: "VPS na nuvem", en: "Cloud VPS" },
+    tagline: {
+      pt: "Garante que nenhum e-mail de cliente fique sem resposta: avisa a equipe no WhatsApp, cobra por prazo e mostra tudo num painel.",
+      en: "Makes sure no customer email goes unanswered: it alerts the team on WhatsApp, escalates by deadline and shows everything on a dashboard.",
+    },
+    problem: {
+      pt: "Os pedidos de clientes chegavam em listas de e-mail compartilhadas pela equipe inteira. Não dava para saber o que já tinha sido respondido, por quem, nem há quanto tempo o cliente estava esperando.",
+      en: "Customer requests arrived on email lists shared by the whole team. There was no way to know what had been answered, by whom, or how long the customer had been waiting.",
+    },
+    solution: {
+      pt: "Um serviço que lê as caixas por IMAP sem marcar nada como lido, liga cada conversa ao seu atendimento, identifica quem respondeu pela assinatura e só considera respondido quando o cliente está nos destinatários. Avisos e cobranças vão para o grupo da equipe no WhatsApp, e um painel web mostra a fila, os indicadores e um modo TV.",
+      en: "A service that reads the mailboxes over IMAP without marking anything as read, links each conversation to its ticket, identifies who replied from the email signature and only counts a reply when the customer is among the recipients. Alerts and reminders go to the team's WhatsApp group, and a web dashboard shows the queue, metrics and a TV mode.",
+    },
+    highlights: {
+      pt: [
+        "Cobrança escalonada por prazo, em 30 min, 1 h, 2 h e 4 h; urgentes, como serviço fora do ar ou invasão, a partir de 10 min",
+        "Classificação de tipo e urgência por palavras-chave, com IA opcional que recebe só o texto novo, devolve JSON validado e volta ao modo local se falhar",
+        "Comandos em linguagem natural no WhatsApp por um servidor MCP ligado ao Hermes Agent, tratando o conteúdo dos e-mails como dado, nunca como instrução",
+        "Painel com quatro perfis de acesso e filtro aplicado no servidor, indicadores clicáveis com exportação CSV e assistente de IA que sugere respostas sem enviar nada sozinho",
+        "Avisos em fila no banco: se a ponte do WhatsApp cair, nada se perde",
+        "92 testes automatizados, deploy pelo GitHub Actions via SSH, PostgreSQL, Caddy com HTTPS e backup diário",
+      ],
+      en: [
+        "Escalating reminders at 30 min, 1 h, 2 h and 4 h; urgent cases, such as an outage or a breach, start at 10 min",
+        "Type and urgency classification by keywords, with optional AI that only sees the new text, returns validated JSON and falls back to local rules on failure",
+        "Natural-language commands on WhatsApp through an MCP server connected to the Hermes Agent, treating email content as data, never as instructions",
+        "Dashboard with four access roles and server-side filtering, clickable metrics with CSV export and an AI assistant that drafts replies without sending anything",
+        "Alerts queued in the database: if the WhatsApp bridge goes down, nothing is lost",
+        "92 automated tests, GitHub Actions deploy over SSH, PostgreSQL, Caddy with HTTPS and daily backups",
+      ],
+    },
+    stack: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "MCP", "Hermes Agent", "Gemini", "Caddy", "Docker", "GitHub Actions"],
+  },
+  {
     slug: "suporte-rag",
     name: { pt: "Assistente de suporte no WhatsApp", en: "WhatsApp support assistant" },
     status: "live",

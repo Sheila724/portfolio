@@ -29,7 +29,7 @@ export const stackGroups: StackGroup[] = [
     id: "automation",
     title: { pt: "Automação e IA", en: "Automation and AI" },
     note: { pt: "Tirar trabalho repetitivo das pessoas.", en: "Taking repetitive work off people's plates." },
-    items: ["n8n", "Ollama", "Qdrant", "Rasa", "Hermes Agent", "Gemini", "Espanso"],
+    items: ["n8n", "Ollama", "Qdrant", "MCP", "Rasa", "Hermes Agent", "Gemini", "Espanso"],
   },
   {
     id: "delivery",
