@@ -41,6 +41,6 @@ export const stackGroups: StackGroup[] = [
     id: "frontend",
     title: { pt: "Interfaces, mobile e BI", en: "Interfaces, mobile and BI" },
     note: { pt: "Painéis que se leem de relance e apps para o dia a dia.", en: "Dashboards you can read at a glance and everyday apps." },
-    items: ["JavaScript", "Svelte", "D3.js", "Chart.js", "Next.js", "Flutter", "PySide6", "Metabase"],
+    items: ["JavaScript", "Angular", "Svelte", "D3.js", "Chart.js", "Next.js", "Flutter", "PySide6", "Metabase"],
   },
 ];
