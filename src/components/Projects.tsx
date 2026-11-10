@@ -248,7 +248,7 @@ function ProjectSheet({ p, d, locale }: { p: Project; d: Dictionary; locale: Loc
               <div>
                 <dt className="text-sm font-semibold text-signal">{d.projects.stack}</dt>
                 <dd className="mt-3">
-                  <StackList items={p.stack} />
+                  <StackList items={[...p.stack, ...(p.tooling ?? [])]} />
                 </dd>
               </div>
             )}

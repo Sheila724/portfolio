@@ -18,6 +18,8 @@ export type Project = {
   highlights: TList;
   next?: T;
   stack: string[];
+  /** Ferramentas de qualidade e segurança do projeto: aparecem no painel de detalhes e contam na seção Stack. */
+  tooling?: string[];
   links?: { repo?: string; demo?: string };
   credit?: { text: T; href: string };
   /** Observação curta exibida junto ao link do código. */
@@ -78,6 +80,7 @@ export const projects: Project[] = [
       en: "Next up: role-based access control, more monitoring providers and per-site uptime history.",
     },
     stack: ["Python", "Flask", "Zabbix", "D3.js", "Docker", "Apache", "GitHub Actions"],
+    tooling: ["Dependabot", "gitleaks", "bandit", "pip-audit", "ruff", "pytest"],
     links: { repo: "https://github.com/Sheila724/noc-horizon" },
   },
   {

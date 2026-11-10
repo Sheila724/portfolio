@@ -4,7 +4,7 @@ import { projects } from "@/content/projects";
 import { stackGroups } from "@/content/stack";
 import type { Locale } from "@/lib/i18n";
 
-const allStacks = [...projects.map((p) => p.stack), ...academicProjects.map((a) => a.stack)];
+const allStacks = [...projects.map((p) => [...p.stack, ...(p.tooling ?? [])]), ...academicProjects.map((a) => a.stack)];
 
 function usage(tech: string) {
   return allStacks.filter((stack) => stack.some((s) => s.toLowerCase() === tech.toLowerCase())).length;
