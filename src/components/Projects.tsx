@@ -3,12 +3,13 @@ import { featuredProjects, otherProjects, type Project, statusLabel } from "@/co
 import { type Locale, tx } from "@/lib/i18n";
 import { ArrowRight, ArrowUpRight, Close, GitHub, Lock } from "./icons";
 import { academicProjects } from "@/content/academic";
-import { FleetArt, GlobeArt, PetArt, TerminalArt } from "./ProjectArt";
+import { FleetArt, GlobeArt, PetArt, ShotArt, TerminalArt } from "./ProjectArt";
 
 export function Projects({ d, locale }: { d: Dictionary; locale: Locale }) {
   const wide = featuredProjects.filter((p) => p.featured === "globe" || p.featured === "pet");
   const pair = featuredProjects.filter((p) => p.featured === "terminal" || p.featured === "fleet");
   const [first, second] = wide;
+  const shots = featuredProjects.filter((p) => p.featured === "shot");
 
   return (
     <section id="projects" aria-labelledby="projects-title" className="shell py-20 md:py-28">
@@ -28,6 +29,14 @@ export function Projects({ d, locale }: { d: Dictionary; locale: Locale }) {
       </div>
 
       {second && <LeadProject p={second} d={d} locale={locale} className="mt-5" reverse />}
+
+      {shots.length > 0 && (
+        <div className="mt-5 grid gap-5 md:grid-cols-2">
+          {shots.map((p) => (
+            <FeaturedProject key={p.slug} p={p} d={d} locale={locale} />
+          ))}
+        </div>
+      )}
 
       <h3 className="mt-20 text-xl font-semibold tracking-tight">{d.projects.more}</h3>
       <ul className="mt-5 border-t border-cable">
@@ -170,7 +179,15 @@ function FeaturedProject({ p, d, locale }: { p: Project; d: Dictionary; locale: 
       <StatusTag p={p} locale={locale} />
       <h3 className="mt-5 text-2xl font-bold tracking-[-0.025em]">{tx(p.name, locale)}</h3>
       <p className="mt-3 text-muted">{p.tagline[locale]}</p>
-      <div className="mt-7">{p.featured === "terminal" ? <TerminalArt locale={locale} /> : <FleetArt locale={locale} />}</div>
+      <div className="mt-7">
+        {p.featured === "shot" && p.image ? (
+          <ShotArt image={p.image} locale={locale} />
+        ) : p.featured === "terminal" ? (
+          <TerminalArt locale={locale} />
+        ) : (
+          <FleetArt locale={locale} />
+        )}
+      </div>
       <StackList items={p.stack} className="mt-6" />
       <div className="mt-auto flex flex-wrap gap-3 pt-8">
         <button type="button" popoverTarget={p.slug} className="btn btn-ghost cursor-pointer">

@@ -6,7 +6,9 @@ export type Project = {
   slug: string;
   name: string | T;
   /** Destaque na seção principal (com ilustração própria). */
-  featured?: "globe" | "terminal" | "fleet" | "pet";
+  featured?: "globe" | "terminal" | "fleet" | "pet" | "shot";
+  /** Captura de tela usada nos destaques do tipo "shot". */
+  image?: { src: string; width: number; height: number; alt: T };
   status: Status;
   /** Código público no GitHub ou repositório privado. */
   visibility: "public" | "private";
@@ -159,6 +161,108 @@ export const projects: Project[] = [
       ],
     },
     stack: ["Nextcloud", "Windows", "Docker", "Linux"],
+  },
+  {
+    slug: "raio-x-email",
+    name: { pt: "Raio-X de um e-mail", en: "Email X-Ray" },
+    featured: "shot",
+    image: {
+      src: "/raio-x-email.webp",
+      width: 712,
+      height: 596,
+      alt: {
+        pt: "Resultado do Raio-X de um e-mail: veredito Atenção e o caminho da mensagem com 47 minutos parada no filtro",
+        en: "Email X-Ray result: a warning verdict and the message route showing 47 minutes stuck in the filter",
+      },
+    },
+    status: "live",
+    visibility: "public",
+    host: { pt: "GitHub Pages", en: "GitHub Pages" },
+    tagline: {
+      pt: "Cole o cabeçalho de um e-mail e veja por onde ele passou, quanto tempo ficou em cada servidor e se SPF, DKIM e DMARC confirmam o remetente.",
+      en: "Paste an email header and see the route it took, how long it sat on each server and whether SPF, DKIM and DMARC confirm the sender.",
+    },
+    problem: {
+      pt: "No suporte, duas perguntas aparecem o tempo todo: por que o e-mail caiu no spam e se a mensagem é golpe. A resposta quase sempre está no cabeçalho, mas ninguém gosta de ler dezenas de linhas Received e Authentication-Results.",
+      en: "Two questions come up in support all the time: why did this email land in spam, and is it a scam? The answer is almost always in the header, but nobody enjoys reading dozens of Received and Authentication-Results lines.",
+    },
+    solution: {
+      pt: "Uma página que transforma o cabeçalho em veredito, rota animada servidor a servidor, barra de onde o tempo foi gasto e verificações explicadas em português simples, com um resumo pronto para colar no chamado. Tudo roda no navegador: nenhum cabeçalho sai da máquina de quem usa.",
+      en: "A page that turns the header into a verdict, an animated server-by-server route, a bar showing where the time went and plain-language checks, plus a summary ready to paste into the ticket. Everything runs in the browser: no header ever leaves the user's machine.",
+    },
+    highlights: {
+      pt: [
+        "Lê as linhas Received de baixo para cima, com protocolo, TLS e horário de cada salto",
+        "Selos de SPF, DKIM e DMARC e veredito: parece legítimo, atenção ou provável falsificação",
+        "Aponta nome de exibição enganoso, Return-Path e Reply-To de outro domínio, punycode, trechos sem TLS e atrasos acima de 5 minutos",
+        "Rota e selos desenhados em SVG, tema claro e escuro e versão para celular",
+        "HTML, CSS e JavaScript puros, sem dependências nem build",
+      ],
+      en: [
+        "Reads the Received lines bottom-up, with protocol, TLS and timestamp for every hop",
+        "SPF, DKIM and DMARC badges and a verdict: looks legitimate, warning or likely spoofed",
+        "Flags misleading display names, Return-Path and Reply-To on other domains, punycode, hops without TLS and delays over 5 minutes",
+        "Route and badges drawn in SVG, light and dark themes and a mobile layout",
+        "Plain HTML, CSS and JavaScript, with no dependencies and no build step",
+      ],
+    },
+    next: {
+      pt: "Primeiro projeto da série Raio-X.",
+      en: "First project in the X-Ray series.",
+    },
+    stack: ["JavaScript", "SVG", "HTML", "CSS"],
+    links: { repo: "https://github.com/Sheila724/raio-x-email", demo: "https://sheila724.github.io/raio-x-email/" },
+  },
+  {
+    slug: "raio-x-servidor",
+    name: { pt: "Raio-X de um servidor", en: "Server X-Ray" },
+    featured: "shot",
+    image: {
+      src: "/raio-x-servidor.webp",
+      width: 832,
+      height: 676,
+      alt: {
+        pt: "Servidor 2U em 3D com o fluxo de ar passando pelos discos, ventoinhas, CPUs e fonte",
+        en: "3D 2U server with airflow passing through the drives, fans, CPUs and power supply",
+      },
+    },
+    status: "live",
+    visibility: "public",
+    host: { pt: "GitHub Pages", en: "GitHub Pages" },
+    tagline: {
+      pt: "Um servidor visto por dentro, em 3D: o ar entra frio pela frente, atravessa as peças e sai quente por trás, e dá para simular falhas e ver o servidor reagir.",
+      en: "A server seen from the inside in 3D: cool air comes in the front, crosses the parts and leaves hot at the back, and you can simulate failures and watch it react.",
+    },
+    problem: {
+      pt: "Quem trabalha com infraestrutura ouve muito \"o servidor está esquentando\" ou \"uma ventoinha parou\", mas pouca gente já viu o que acontece lá dentro quando isso acontece.",
+      en: "Anyone in infrastructure hears \"the server is overheating\" or \"a fan stopped\" all the time, but few people have ever seen what actually happens inside when it does.",
+    },
+    solution: {
+      pt: "Um servidor 2U em 3D com fluxo de ar animado, cor por temperatura, cabos, leituras ao vivo e tour automático. Dá para provocar falhas como ventoinha parada, pasta térmica seca, disco degradando, entrada obstruída e carga máxima. Também pode ser ligado a um servidor de verdade por uma API simples.",
+      en: "A 3D 2U server with animated airflow, temperature colors, cables, live readings and an automatic tour. You can trigger failures such as a stopped fan, dry thermal paste, a degrading drive, a blocked intake or full load. It can also be wired to a real server through a simple API.",
+    },
+    highlights: {
+      pt: [
+        "Motor 3D próprio em JavaScript, sem Three.js nem WebGL: perspectiva, ordenação de profundidade e desenho em SVG",
+        "Partículas de ar que seguem a rotação de cada ventoinha e mudam de cor com a temperatura",
+        "Modelo térmico simplificado com throttling da CPU acima de 95 °C, SMART dos discos e diferença de temperatura do ar",
+        "Tour automático em 9 paradas, que começa sozinho com #tour no endereço, pronto para telão ou vídeo",
+        "Modo real que lê dados de lm-sensors, smartctl, IPMI, Proxmox ou Zabbix por uma rota /api/servidor",
+      ],
+      en: [
+        "Custom 3D engine in JavaScript, no Three.js or WebGL: perspective, depth sorting and SVG rendering",
+        "Air particles that follow each fan's speed and change color with temperature",
+        "Simplified thermal model with CPU throttling above 95 °C, drive SMART and air temperature delta",
+        "9-stop automatic tour that starts on its own with #tour in the URL, ready for a wall screen or video",
+        "Real mode that reads lm-sensors, smartctl, IPMI, Proxmox or Zabbix data through an /api/servidor route",
+      ],
+    },
+    next: {
+      pt: "Segundo projeto da série Raio-X.",
+      en: "Second project in the X-Ray series.",
+    },
+    stack: ["JavaScript", "SVG", "HTML", "CSS"],
+    links: { repo: "https://github.com/Sheila724/painel3Dservidor", demo: "https://sheila724.github.io/painel3Dservidor/#tour" },
   },
   {
     slug: "monitor-atendimento",

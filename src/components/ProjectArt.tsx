@@ -1,3 +1,4 @@
+import type { Project } from "@/content/projects";
 import type { Locale } from "@/lib/i18n";
 import { buildGlobe } from "@/lib/globe";
 
@@ -132,6 +133,23 @@ export function PetArt({ locale }: { locale: Locale }) {
             ? "Animações do Pestinha: pensando, guarda-chuva na chuva, festa, diário, obedecer e recusar"
             : "Pestinha animations: thinking, umbrella in the rain, party, diary, obeying and refusing"
         }
+      />
+    </div>
+  );
+}
+
+export function ShotArt({ image, locale }: { image: NonNullable<Project["image"]>; locale: Locale }) {
+  return (
+    <div className="overflow-hidden rounded-xl border border-cable bg-night">
+      {/* eslint-disable-next-line @next/next/no-img-element -- export estático sem otimização de imagem */}
+      <img
+        src={image.src}
+        width={image.width}
+        height={image.height}
+        loading="lazy"
+        decoding="async"
+        className="block h-auto w-full"
+        alt={image.alt[locale]}
       />
     </div>
   );
